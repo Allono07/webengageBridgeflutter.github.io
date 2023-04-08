@@ -1,20 +1,20 @@
 
 function loadFromLocalStorage(){
-    const cuidFromStorage = localStorage.getItem("cuid");
+    const cuidFromStorage = sessionStorage.getItem("cuid");
     if(cuidFromStorage !== null && cuidFromStorage!== ""){
         document.getElementById("cuid").value = cuidFromStorage;
         setWebEngageCUID(cuidFromStorage)
         document.getElementById("login_button").disabled = true;
         document.getElementById("logout_button").disabled = false;
         document.getElementById("cuid").disabled = true;
-        if(localStorage.getItem("fname") != ""){
-            document.getElementById("fname").value = localStorage.getItem("fname");
+        if(sessionStorage .getItem("fname") !== ""){
+            document.getElementById("fname").value = sessionStorage.getItem("fname");
         }
-        if(localStorage.getItem("sname") != ""){
-            document.getElementById("sname").value = localStorage.getItem("sname");
+        if(sessionStorage.getItem("sname") !== ""){
+            document.getElementById("sname").value = sessionStorage.getItem("sname");
         }
-        if(localStorage.getItem("phone") != ""){
-            document.getElementById("phone").value = localStorage.getItem("phone");
+        if(sessionStorage.getItem("phone") !== ""){
+            document.getElementById("phone").value = sessionStorage.getItem("phone");
         }
     }
 
@@ -39,19 +39,19 @@ function onFormSubmit(){
         document.getElementById("cuid").disabled = false;
 
         setWebEngageCUID(cuid);
-        storeInLocalStorage("cuid",cuid)
+        storeInSessionStorage("cuid",cuid)
     }
     if(fname != ""){
         setWebEngageAttributes("we_first_name",fname);
-        storeInLocalStorage("fname",fname)
+        storeInSessionStorage("fname",fname)
     }
-    if(sname != ""){
+    if(sname !== ""){
         setWebEngageAttributes("we_second_name",sname);
-        storeInLocalStorage("sname",sname)
+        storeInSessionStorage("sname",sname)
     }
-    if(phone != ""){
+    if(phone !== ""){
         setWebEngageAttributes("we_phone",phone);
-        storeInLocalStorage("phone",phone)
+        storeInSessionStorage("phone",phone)
     }
 }
 
@@ -76,18 +76,18 @@ function onLogout(){
     document.getElementById("cuid").disabled = false;
 
     webengage.user.logout();
-    clearLocalStorage();
+    clearSessionStorage();
 }
 
-function clearLocalStorage(){
-    localStorage.removeItem("cuid");
-    localStorage.removeItem("fname");
-    localStorage.removeItem("sname");
-    localStorage.removeItem("phone");
+function clearSessionStorage(){
+    sessionStorage.removeItem("cuid");
+    sessionStorage.removeItem("fname");
+    sessionStorage.removeItem("sname");
+    sessionStorage.removeItem("phone");
 }
 
-function storeInLocalStorage(key, value){
+function storeInSessionStorage(key, value){
     console.log("storing ",key," with value ",value," in local storage")
-    localStorage.setItem(key, value);
+    sessionStorage.setItem(key, value);
 }
 
