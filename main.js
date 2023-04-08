@@ -4,6 +4,8 @@ function loadFromLocalStorage(){
     if(cuidFromStorage !== null && cuidFromStorage!== ""){
         document.getElementById("cuid").value = cuidFromStorage;
         setWebEngageCUID(cuidFromStorage)
+        document.getElementById("login_button").disabled = true;
+        document.getElementById("logout_button").disabled = false;
         document.getElementById("cuid").disabled = true;
         if(localStorage.getItem("fname") != ""){
             document.getElementById("fname").value = localStorage.getItem("fname");
@@ -32,16 +34,24 @@ function onFormSubmit(){
     console.log("isValid -> ",isValid);
 
     if(isValid===true){
+        document.getElementById("login_button").disabled = true;
+        document.getElementById("logout_button").disabled = false;
+        document.getElementById("cuid").disabled = false;
+
         setWebEngageCUID(cuid);
+        storeInLocalStorage("cuid",cuid)
     }
     if(fname != ""){
         setWebEngageAttributes("we_first_name",fname);
+        storeInLocalStorage("fname",fname)
     }
     if(sname != ""){
         setWebEngageAttributes("we_second_name",sname);
+        storeInLocalStorage("sname",sname)
     }
     if(phone != ""){
         setWebEngageAttributes("we_phone",phone);
+        storeInLocalStorage("phone",phone)
     }
 }
 
@@ -60,7 +70,11 @@ function setWebEngageCUID(cuid){
     webengage.user.login(cuid)
 }
 
-function logout(){
+function onLogout(){
+    document.getElementById("logout_button").disabled = true;
+    document.getElementById("login_button").disabled = false;
+    document.getElementById("cuid").disabled = false;
+
     webengage.user.logout();
     clearLocalStorage();
 }
@@ -73,5 +87,7 @@ function clearLocalStorage(){
 }
 
 function storeInLocalStorage(key, value){
+    console.log("storing ",key," with value ",value," in local storage")
     localStorage.setItem(key, value);
 }
+
