@@ -1,23 +1,26 @@
 
 function loadFromLocalStorage(){
-    const cuidFromStorage = sessionStorage.getItem("cuid");
+    const cuidFromStorage = localStorage.getItem("cuid");
     if(cuidFromStorage !== null && cuidFromStorage!== ""){
         document.getElementById("cuid").value = cuidFromStorage;
         setWebEngageCUID(cuidFromStorage)
         document.getElementById("login_button").disabled = true;
         document.getElementById("logout_button").disabled = false;
         document.getElementById("cuid").disabled = true;
-        if(sessionStorage .getItem("fname") !== ""){
-            document.getElementById("fname").value = sessionStorage.getItem("fname");
+        if(localStorage .getItem("fname") !== ""){
+            document.getElementById("fname").value = localStorage.getItem("fname");
         }
-        if(sessionStorage.getItem("sname") !== ""){
-            document.getElementById("sname").value = sessionStorage.getItem("sname");
+        if(localStorage.getItem("sname") !== ""){
+            document.getElementById("sname").value = localStorage.getItem("sname");
         }
-        if(sessionStorage.getItem("phone") !== ""){
-            document.getElementById("phone").value = sessionStorage.getItem("phone");
+        if(localStorage.getItem("phone") !== ""){
+            document.getElementById("phone").value = localStorage.getItem("phone");
         }
     }
-
+    else{
+        document.getElementById("login_button").disabled = false;
+        document.getElementById("logout_button").disabled = true;
+    }
 }
 
 function onFormSubmit(){
@@ -29,7 +32,6 @@ function onFormSubmit(){
     console.log("sname -> ",sname);
     console.log("phone -> ",phone);
     console.log("cuid -> ",cuid);
-
     isValid = validate(cuid);
     console.log("isValid -> ",isValid);
 
@@ -37,26 +39,25 @@ function onFormSubmit(){
         document.getElementById("login_button").disabled = true;
         document.getElementById("logout_button").disabled = false;
         document.getElementById("cuid").disabled = false;
-
         setWebEngageCUID(cuid);
-        storeInSessionStorage("cuid",cuid)
+        storeInLocalStorage("cuid",cuid)
     }
     if(fname != ""){
         setWebEngageAttributes("we_first_name",fname);
-        storeInSessionStorage("fname",fname)
+        storeInLocalStorage("fname",fname)
     }
     if(sname !== ""){
         setWebEngageAttributes("we_second_name",sname);
-        storeInSessionStorage("sname",sname)
+        storeInLocalStorage("sname",sname)
     }
     if(phone !== ""){
         setWebEngageAttributes("we_phone",phone);
-        storeInSessionStorage("phone",phone)
+        storeInLocalStorage("phone",phone)
     }
 }
 
-function validate(cuid){
-    if(cuid !== ""){
+function validate(string){
+    if(string !== ""){
         return true;        
     }
     return false;
@@ -74,20 +75,26 @@ function onLogout(){
     document.getElementById("logout_button").disabled = true;
     document.getElementById("login_button").disabled = false;
     document.getElementById("cuid").disabled = false;
-
     webengage.user.logout();
-    clearSessionStorage();
+    clearLocalStorage();
 }
 
 function clearSessionStorage(){
-    sessionStorage.removeItem("cuid");
-    sessionStorage.removeItem("fname");
-    sessionStorage.removeItem("sname");
-    sessionStorage.removeItem("phone");
+    localStorage.removeItem("cuid");
+    localStorage.removeItem("fname");
+    localStorage.removeItem("sname");
+    localStorage.removeItem("phone");
 }
 
-function storeInSessionStorage(key, value){
+function storeInLocalStorage(key, value){
     console.log("storing ",key," with value ",value," in local storage")
-    sessionStorage.setItem(key, value);
+    localStorage.setItem(key, value);
 }
 
+function onEventClick(){
+    let eventName = document.getElementById("event_name").value;
+    let eventData = document.getElementById("event_data").value;
+    if(validate(eventName) === true){
+        webengage.analytics.track(eventData, eventData);
+    }
+}

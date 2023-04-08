@@ -48,8 +48,22 @@
 
             </div>
       </div>
-      <div class="tab-pane" id="event" role="tabpanel" aria-labelledby="event-tab"> event </div>
+      <div class="tab-pane" id="event" role="tabpanel" aria-labelledby="event-tab"> 
+        <div class="mb-3">
+          <label for="eventName" class="form-label">Event Name</label>
+          <input type="text"
+            class="form-control" name="eventName" id="eventName" aria-describedby="helpId" placeholder="Enter Event Name">
+        </div>
+        <div class="mb-3">
+          <label for="eventData" class="form-label">Event Data</label>
+          <input type="text"
+            class="form-control" name="eventData" id="eventData" aria-describedby="helpId" placeholder="Enter Event data">
+        </div>
+        <button id="event_button" onclick="onEventClick()" class="btn btn-primary">Track</button>
+
+      </div>
     </div>
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
