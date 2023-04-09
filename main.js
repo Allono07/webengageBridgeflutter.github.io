@@ -95,6 +95,23 @@ function onEventClick(){
     let eventName = document.getElementById("eventName").value;
     let eventData = document.getElementById("eventData").value;
     if(validate(eventName) === true){
-        webengage.analytics.track(eventData, eventData);
+        webengage.analytics.track(eventData, {
+            "Amount"             : 808.48,
+            "Product 1 SKU Code" : "UHUH799",
+            "Product 1 Name"     : "Armani Jeans",
+            "Product 1 Price"    : 300.49,
+            "Product 1 Size"     : "L",
+            "Product 2 SKU Code" : "FBHG746",
+            "Product 2 Name"     : "Hugo Boss Jacket",
+            "Product 2 Price"    : 507.99,
+            "Product 2 Size"     : "L",
+          
+            /* Date */
+            "Delivery Date"      : new Date("2017-01-09T00:00:00.000Z"),
+                
+            "Delivery City"      : "San Francisco",
+            "Delivery ZIP"       : "94121",
+            "Coupon Applied"     : "BOGO17"
+        });
     }
 }

@@ -36,12 +36,10 @@
       webengage.user.login = webengage.user.identify = function(id) {
         console.log("calling login via bridge");
         window.login.postMessage(id);
-        bridge.login(id);
       };
       webengage.user.logout = function() {
         console.log("calling logout via bridge");
-        window.logout.postmessage();
-        bridge.logout();
+        window.logout.postMessage();
       };
 
       webengage.user.setAttribute = function(name, value) {
@@ -55,7 +53,7 @@
         }
 
         if (type.call(attr) === '[object Object]') {
-          bridge.setAttribute(JSON.stringify(attr));
+          window.setAttribute.postMessage(JSON.stringify(attr));
         }
       };
 
@@ -65,11 +63,11 @@
           name = null;
         }
 
-        bridge.screen(name || null, type.call(data) === '[object Object]' ? JSON.stringify(data) : null);
+        window.screen.postMessage(name || null, type.call(data) === '[object Object]' ? JSON.stringify(data) : null);
       };
 
       webengage.track = function(name, data) {
-        bridge.track(name, type.call(data) === '[object Object]' ? JSON.stringify(data) : null);
+        window.track.postMessage(name, type.call(data) === '[object Object]' ? JSON.stringify(data) : null);
       };
 
     })(window.__WEBENGAGE_MOBILE_BRIDGE__);
