@@ -79,7 +79,7 @@ function onLogout(){
     clearLocalStorage();
 }
 
-function clearSessionStorage(){
+function clearLocalStorage(){
     localStorage.removeItem("cuid");
     localStorage.removeItem("fname");
     localStorage.removeItem("sname");
