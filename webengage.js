@@ -28,20 +28,20 @@
 
 
   if (window.__WEBENGAGE_MOBILE_BRIDGE__) {
-    console.log("WE_MOBILE_BRIDGE -> initialising mobile sdk")
+    console.log("WE_MOBILE_BRIDGE -> initialising mobile sdk");
     (function(bridge) {
-      console.log("Calling bridge method ")
+      console.log("Calling bridge method ");
       var type = Object.prototype.toString;
 
       webengage.user.login = webengage.user.identify = function(id) {
-        console.log("calling login via bridge")
-        window.login.postMessage(id)
-        bridge.login(id)
+        console.log("calling login via bridge");
+        window.login.postMessage(id);
+        bridge.login(id);
       };
       webengage.user.logout = function() {
-        console.log("calling logout via bridge")
-        window.logout.postmessage()
-        bridge.logout()
+        console.log("calling logout via bridge");
+        window.logout.postmessage();
+        bridge.logout();
       };
 
       webengage.user.setAttribute = function(name, value) {
