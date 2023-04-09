@@ -92,8 +92,8 @@ function storeInLocalStorage(key, value){
 }
 
 function onEventClick(){
-    let eventName = document.getElementById("event_name").value;
-    let eventData = document.getElementById("event_data").value;
+    let eventName = document.getElementById("eventName").value;
+    let eventData = document.getElementById("eventData").value;
     if(validate(eventName) === true){
         webengage.analytics.track(eventData, eventData);
     }
