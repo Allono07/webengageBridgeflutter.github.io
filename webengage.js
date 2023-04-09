@@ -34,11 +34,11 @@
       var type = Object.prototype.toString;
 
       webengage.user.login = webengage.user.identify = function(id) {
-        console.log("flutter calling login via bridge -> ")
+        window.login.postMessage(id)
         bridge.login(id)
       };
       webengage.user.logout = function() {
-        console.log("flutter calling login via bridge -> ")
+        window.logout.postmessage()
         bridge.logout()
       };
 
